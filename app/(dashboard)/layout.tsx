@@ -1,3 +1,5 @@
+import Navbar from "./_components/navbar";
+import OrganizationSidebar from "./_components/orgSidebar";
 import Sidebar from "./_components/sidebar";
 
 interface DashboardLayoutProps {
@@ -9,7 +11,13 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     <main className="h-full ">
       <Sidebar />
       <div className="pl-[60px] h-full">
-      {children}
+        <div className="flex h-full">
+          <OrganizationSidebar />
+          <div className="h-full flex-1">
+            <Navbar />
+            {children}
+          </div>
+        </div>
       </div>
     </main>
   );
