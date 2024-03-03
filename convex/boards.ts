@@ -64,6 +64,18 @@ export const remove = mutation({
             throw new Error("Not Authorized");
         }
 
+        const userId = identity.subject;
+
+        const isFavourite = await ctx.db
+            .query("userFavourites")
+            .withIndex("by_user_board", (q) => q.eq("userId", userId).eq("boardId", args.id))
+            .unique();
+
+
+            if(isFavourite) {
+                await ctx.db.delete(isFavourite._id);
+            }
+
         await ctx.db.delete(args.id);
 
     }
@@ -116,7 +128,7 @@ export const favourite = mutation({
 
         const userId = identity.subject;
         const userFavourite = await ctx.db.query("userFavourites")
-            .withIndex("by_user_board_org", (q) => q.eq("userId",userId).eq("boardId", board._id).eq("orgId", args.orgId))
+            .withIndex("by_user_board", (q) => q.eq("userId",userId).eq("boardId", board._id))
             .first();
         
         if (userFavourite) {
