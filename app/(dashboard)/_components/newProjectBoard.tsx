@@ -6,19 +6,21 @@ import { cn } from "@/lib/utils";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { Ban, LoaderIcon, Plus } from "lucide-react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface NewProjectBoardProps {
   orgId: string;
   disabled?: boolean;
 }
 export const NewProjectBoard = ({ orgId, disabled  }: NewProjectBoardProps) => {
-
+    const navigate = useRouter();
     const { mutate , pending} = useApiMutation(api.boards.create);
     const onClick = () => {
         mutate({
             orgId,
             title:"Untitled"
         }).then((id)=>{
+            navigate.push(`/board/${id}`);
             toast.success("Project created");
         }).catch((error)=>{
             toast.error("Something went wrong")
