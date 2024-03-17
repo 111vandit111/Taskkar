@@ -15,7 +15,7 @@ const Canvas = ({boardId}: Props) => {
   console.log("from info ",info)
   return (
     <main className='h-full w-full relative bg-neutral-200 touch-none min-h-[100vh]'>
-      <Info />
+      <Info boardId={boardId}/>
       <Participants />
       <Toolbar />
     </main>
