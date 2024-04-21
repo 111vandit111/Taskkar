@@ -87,7 +87,7 @@ export const Toolbar = ({
         onClick={onUndo}
         label="Undo"
         isActive={false}
-        isDisabled={!canUndo}
+        isDisabled={canUndo}
       />
 
       <ToolbarButton
@@ -95,7 +95,7 @@ export const Toolbar = ({
         onClick={onRedo}
         label="Redo"
         isActive={false}
-        isDisabled={!canRedo}
+        isDisabled={canRedo}
       />
     </div>
   );
