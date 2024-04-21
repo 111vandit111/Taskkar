@@ -1,43 +1,115 @@
-
 import { Skeleton } from "@/components/ui/skeleton";
-import { Circle, ClipboardX, Eclipse, Pencil, Redo, Square, Undo } from "lucide-react";
+import {
+  Circle,
+  ClipboardX,
+  Eclipse,
+  MousePointer2,
+  Pencil,
+  Redo,
+  Square,
+  Sticker,
+  StickyNote,
+  Type,
+  Undo,
+} from "lucide-react";
+import { ToolbarButton } from "./toolbar-button";
+import { CanvasMode, CanvasState, LayerType } from "@/types/canvas";
 
-export const Toolbar = () => {
-    const icon = "cursor-pointer";
-    return (
-        <div className="absolute py-3 px-4 w-fit bottom-5 right-[50%] transform translate-x-[50%] bg-white shadow-lg rounded-lg flex gap-3">
-            <div className={icon}>
-                <Pencil />
-            </div>
-            <div className={icon}>
-                <Square />
-            </div>
-            <div className={icon}>
-                <Circle />
-            </div>
-            <div className={icon}>
-               <Eclipse />
-            </div>
-            <div className={icon}>
-                <Undo />
-            </div>
-            <div className={icon}>
-                <Redo />
-            </div>
-        </div>
-    )
-    
+interface ToolbarProps {
+  canvasState: CanvasState;
+  setCanvasState: (state: CanvasState) => void;
+  onUndo: () => void;
+  onRedo: () => void;
+  canUndo: boolean;
+  canRedo: boolean;
 }
+export const Toolbar = ({
+  canvasState,
+  setCanvasState,
+  onUndo,
+  onRedo,
+  canUndo,
+  canRedo,
+}: ToolbarProps) => {
+  const icon = "cursor-pointer";
+  return (
+    <div className="absolute py-3 px-4 w-fit bottom-5 right-[50%] transform translate-x-[50%] bg-white shadow-lg rounded-lg flex gap-3 items-center">
+      <ToolbarButton
+        icon={Pencil}
+        onClick={() => setCanvasState({ mode: CanvasMode.Pencil })}
+        label="Edit"
+        isActive={canvasState.mode === CanvasMode.Pencil}
+      />
 
-export const ToolbarSkeleton=()=>{
-    return (
-        <div className="absolute py-1 px-2 bottom-5 right-[50%] transform translate-x-[50%] bg-white shadow-lg rounded-lg flex gap-3">
-            <Skeleton className="w-9 h-9 bg-slate-300" />
-            <Skeleton className="w-9 h-9 bg-slate-300" />
-            <Skeleton className="w-9 h-9 bg-slate-300" />
-            <Skeleton className="w-9 h-9 bg-slate-300" />
-            <Skeleton className="w-9 h-9 bg-slate-300" />
-            <Skeleton className="w-9 h-9 bg-slate-300" />
-        </div>
-    )
-}
+      <ToolbarButton
+        icon={MousePointer2}
+        onClick={() => setCanvasState({ mode: CanvasMode.None })}
+        label="Select"
+        isActive={
+          canvasState.mode === CanvasMode.None ||
+          canvasState.mode === CanvasMode.Translating ||
+          canvasState.mode === CanvasMode.SelectionNet ||
+          canvasState.mode === CanvasMode.Pressing ||
+          canvasState.mode === CanvasMode.Resizing
+        }
+      />
+
+      <ToolbarButton
+        icon={Type}
+        onClick={() => setCanvasState({ mode: CanvasMode.Inserting , layerType:LayerType.Text})}
+        label="Text"
+        isActive={canvasState.mode === CanvasMode.Inserting && canvasState.layerType === LayerType.Text}
+      />
+
+      <ToolbarButton
+        icon={Sticker}
+        onClick={() => setCanvasState({ mode: CanvasMode.Inserting , layerType:LayerType.Note})}
+        label="Sticky Note"
+        isActive={canvasState.mode === CanvasMode.Inserting && canvasState.layerType === LayerType.Note}
+      />
+
+      <ToolbarButton
+        icon={Square}
+        onClick={() => setCanvasState({ mode: CanvasMode.Inserting , layerType:LayerType.Rectangle})}
+        label="Rectangle"
+        isActive={canvasState.mode === CanvasMode.Inserting && canvasState.layerType === LayerType.Rectangle}
+      />
+
+      <ToolbarButton
+        icon={Circle}
+        onClick={() => setCanvasState({ mode: CanvasMode.Inserting , layerType:LayerType.Ellipse})}
+        label="Circle"
+        isActive={canvasState.mode === CanvasMode.Inserting && canvasState.layerType === LayerType.Ellipse}
+      />
+
+      <ToolbarButton
+        icon={Undo}
+        onClick={onUndo}
+        label="Undo"
+        isActive={false}
+        isDisabled={canUndo}
+      />
+
+      <ToolbarButton
+        icon={Redo}
+        onClick={onRedo}
+        label="Redo"
+        isActive={false}
+        isDisabled={canRedo}
+      />
+    </div>
+  );
+};
+
+export const ToolbarSkeleton = () => {
+  return (
+    <div className="absolute py-1 px-2 bottom-5 right-[50%] transform translate-x-[50%] bg-white shadow-lg rounded-lg flex gap-3">
+      <Skeleton className="w-9 h-9 bg-slate-300" />
+      <Skeleton className="w-9 h-9 bg-slate-300" />
+      <Skeleton className="w-9 h-9 bg-slate-300" />
+      <Skeleton className="w-9 h-9 bg-slate-300" />
+      <Skeleton className="w-9 h-9 bg-slate-300" />
+      <Skeleton className="w-9 h-9 bg-slate-300" />
+    </div>
+  );
+};
