@@ -15,7 +15,6 @@ export const LayerPreview = memo(
 
     if (!layer) return null;
 
-    console.log(layer);
     switch (layer.type) {
       case LayerType.Rectangle:
         return (
@@ -26,8 +25,7 @@ export const LayerPreview = memo(
             selectionColor={selectionColor}
           />
         );
-      default:
-        console.log("Unkown");
+      default: null
     }
   }
 );
