@@ -51,7 +51,10 @@ export const SelectionBox = ({
                   bounds.y - HANDLE_WIDTH / 2
                 }px)`,
               }}
-              onPointerDown={() => {}}
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                onResizeHandlePointerDown(Side.Top + Side.Left , bounds)
+              }}
             />
           </>
 
@@ -68,7 +71,10 @@ export const SelectionBox = ({
                   bounds.x + bounds.width / 2 - HANDLE_WIDTH / 2
                 }px, ${bounds.y - HANDLE_WIDTH / 2}px)`,
               }}
-              onPointerDown={() => {}}
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                onResizeHandlePointerDown(Side.Top , bounds)
+              }}
             />
           </>
 
@@ -85,7 +91,10 @@ export const SelectionBox = ({
                   bounds.x - HANDLE_WIDTH / 2 + bounds.width
                 }px, ${bounds.y - HANDLE_WIDTH / 2}px)`,
               }}
-              onPointerDown={() => {}}
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                onResizeHandlePointerDown(Side.Top + Side.Right , bounds)
+              }}
             />
           </>
           <>
@@ -101,7 +110,10 @@ export const SelectionBox = ({
                   bounds.x - HANDLE_WIDTH / 2 + bounds.width
                 }px, ${bounds.y + bounds.height / 2 - HANDLE_WIDTH}px)`,
               }}
-              onPointerDown={() => {}}
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                onResizeHandlePointerDown(Side.Right , bounds)
+              }}
             />
           </>
           <>
@@ -117,7 +129,10 @@ export const SelectionBox = ({
                   bounds.x - HANDLE_WIDTH / 2 + bounds.width
                 }px, ${bounds.y + bounds.height - HANDLE_WIDTH / 2}px)`,
               }}
-              onPointerDown={() => {}}
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                onResizeHandlePointerDown(Side.Bottom + Side.Right , bounds)
+              }}
             />
           </>
           <>
@@ -133,7 +148,10 @@ export const SelectionBox = ({
                   bounds.x + bounds.width / 2 - HANDLE_WIDTH / 2
                 }px,  ${bounds.y + bounds.height - HANDLE_WIDTH / 2}px)`,
               }}
-              onPointerDown={() => {}}
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                onResizeHandlePointerDown(Side.Bottom , bounds)
+              }}
             />
           </>
           <>
@@ -149,7 +167,10 @@ export const SelectionBox = ({
                   bounds.y - HANDLE_WIDTH / 2 + bounds.height
                 }px)`,
               }}
-              onPointerDown={() => {}}
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                onResizeHandlePointerDown(Side.Bottom + Side.Left , bounds)
+              }}
             />
           </>
           <>
@@ -165,7 +186,10 @@ export const SelectionBox = ({
                   bounds.x - HANDLE_WIDTH / 2
                 }px, ${bounds.y + bounds.height / 2 - HANDLE_WIDTH}px)`,
               }}
-              onPointerDown={() => {}}
+              onPointerDown={(e) => {
+                e.stopPropagation();
+                onResizeHandlePointerDown(Side.Left , bounds)
+              }}
             />
           </>
         </>

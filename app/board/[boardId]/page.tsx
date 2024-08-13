@@ -10,7 +10,6 @@ interface Props {
 }
 
 const BoardIdPage = ({params}:Props) => {
-  console.log("from " +params.boardId)
   return (
     <Room roomId={params.boardId} fallback={<Loading />}>
     <div>
