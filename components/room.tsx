@@ -21,10 +21,12 @@ export const Room = ({
     <RoomProvider id={roomId} initialPresence={{
       cursor: null,
       selection: [],
+      pencilDraft: null,
+      penColor: null,
     }}
     initialStorage={{
       layers: new LiveMap<string, LiveObject<Layer>>(),
-      layerIds: new LiveList<string>(),
+      layerIds: new LiveList([]),
     }}>
       <ClientSideSuspense fallback={fallback}>{()=>children}</ClientSideSuspense>
     </RoomProvider>

@@ -103,8 +103,7 @@ export type CanvasState =
     |
     {
         mode: CanvasMode.Translating,
-        origin?: Point;
-        current?: Point;
+        current: Point;
     }
     |
     {
