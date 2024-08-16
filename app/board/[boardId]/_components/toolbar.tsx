@@ -1,19 +1,19 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Circle,
-  ClipboardX,
-  Eclipse,
   MousePointer2,
   Pencil,
   Redo,
   Square,
   Sticker,
-  StickyNote,
   Type,
   Undo,
 } from "lucide-react";
 import { ToolbarButton } from "./toolbar-button";
 import { CanvasMode, CanvasState, LayerType } from "@/types/canvas";
+import { cn } from "@/lib/utils";
+import { useEffect } from "react";
+import { useMediaQuery } from "usehooks-ts";
 
 interface ToolbarProps {
   canvasState: CanvasState;
@@ -32,8 +32,9 @@ export const Toolbar = ({
   canRedo,
 }: ToolbarProps) => {
   const icon = "cursor-pointer";
+  const isMobile = useMediaQuery("(max-width: 500px)");
   return (
-    <div className="absolute py-3 px-4 w-fit bottom-5 right-[50%] transform translate-x-[50%] bg-white shadow-lg rounded-lg flex gap-3 items-center">
+    <div className={cn("absolute py-3 px-4 w-fit bottom-5 right-[50%] transform translate-x-[50%] bg-white shadow-lg rounded-lg flex gap-3 items-center" , isMobile && "flex-col bottom-2 translate-x-0 right-[100%] left-3")}>
       <ToolbarButton
         icon={Pencil}
         onClick={() => setCanvasState({ mode: CanvasMode.Pencil })}
