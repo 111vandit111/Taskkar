@@ -1,4 +1,4 @@
-import { Camera, Color, Point, Side, XYWH } from "@/types/canvas"
+import { Camera, Color, Layer, Point, Side, XYWH } from "@/types/canvas"
 import { type ClassValue, clsx } from "clsx"
 import React from "react"
 import { twMerge } from "tailwind-merge"
@@ -67,4 +67,39 @@ if((corner & Side.Bottom) === Side.Bottom){
 }
 
 return result;
+}
+
+export function findIntersectingLayerWithRectangle(
+layerIds : readonly string[], 
+layers : ReadonlyMap<string, Layer>,
+a : Point,
+b : Point 
+){
+  const rect = {
+    x : Math.min(a.x, b.x),
+    y : Math.min(a.y, b.y),
+    width : Math.abs(a.x - b.x),
+    height : Math.abs(a.y - b.y)
+  }
+
+  const ids = []
+
+  for(const id of layerIds){
+    const layer = layers.get(id)
+
+    if(layer == null) continue;
+
+    const { x, y, width, height } = layer;
+
+    if(
+      x < rect.x + rect.width &&
+      x + width > rect.x &&
+      y < rect.y + rect.height &&
+      y + height > rect.y
+    ){
+      ids.push(id)
+    }
+  }
+
+  return ids;
 }
